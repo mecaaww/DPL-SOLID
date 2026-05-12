@@ -148,18 +148,18 @@ class PrinterThermal {
 }
 
 class LaporanService {
- 
-    private IPenyimpanan penyimpanan;
-    private IPencetak pencetak;
- 
-    public LaporanService(IPenyimpanan penyimpanan, IPencetak pencetak) {
-        this.penyimpanan = penyimpanan;
-        this.pencetak    = pencetak;
+
+    private Database db;
+    private PrinterThermal printer;
+
+    public LaporanService() {
+        this.db      = new Database();
+        this.printer = new PrinterThermal();
     }
- 
+
     public void buatLaporan(double total) {
-        penyimpanan.simpan(String.format("Total penjualan: Rp %.0f", total));
-        pencetak.cetak(String.format("Laporan: Rp %.0f", total));
+        db.simpan(String.format("Total penjualan: Rp %.0f", total));
+        printer.cetak(String.format("Laporan: Rp %.0f", total));
     }
 }
 
