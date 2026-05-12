@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class ProgramKasir {
+public class Program-Kasir {
 
     public double jalankanProgram(List<Map<String, Object>> items) {
 
