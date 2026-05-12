@@ -93,8 +93,9 @@ class KasirManual implements IPerhitungan, ICetakStruk, ISimpanLaporan, IKirimEm
     }
 }
 
-class KasirDigital implements MesinKasir {
-
+//implementasi semua interface termasuk IKasirDigitalFitur karena memang kasir digital memiliki semua kemampuan tsb.
+class KasirDigital implements IPerhitungan, ICetakStruk, ISimpanLaporan, IKirimEmail, IKasirDigitalFitur {
+    
     @Override
     public double hitungTotal(List<Map<String, Object>> items) {
         double total = 0;
