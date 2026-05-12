@@ -137,12 +137,15 @@ class KasirDigital implements IPerhitungan, ICetakStruk, ISimpanLaporan, IKirimE
     }
 }
 
+// Sebelumnya private KasirDigital kasir masih concrete class, Sekarang menerima abstraksi on IPerhitungan & ICetakStruk
 class TransaksiService {
-
-    private KasirDigital kasir;
-
-    public TransaksiService() {
-        this.kasir = new KasirDigital();
+ 
+    private IPerhitungan perhitungan;
+    private ICetakStruk cetakStruk;
+ 
+    public TransaksiService(IPerhitungan perhitungan, ICetakStruk cetakStruk) {
+        this.perhitungan = perhitungan;
+        this.cetakStruk  = cetakStruk;
     }
 
     public double prosesTransaksi(List<Map<String, Object>> items) {
