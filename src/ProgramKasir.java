@@ -29,13 +29,34 @@ public class ProgramKasir {
     }
 }
 
-interface MesinKasir {
+//sebelumnya 1 interface dengan banyak method, sekarang dipecah menjadi interface kecil-kecil sesuai tangung jawabnya.
+interface IPerhitungan {
     double hitungTotal(List<Map<String, Object>> items);
+}
+
+interface ICetakStruk {
     void cetakStruk(double total);
+}
+ 
+interface ISimpanLaporan {
     void simpanLaporan(double total);
-    void kirimEmail(double total);
+}
+
+interface IKasirDigitalFitur {
     void scanBarcode(String kode);
     void bayarDenganKartu(double jumlah);
+}
+ 
+interface IKirimEmail {
+    void kirimEmail(double total);
+}
+
+interface IPenyimpanan {
+    void simpan(String data);
+}
+ 
+interface IPencetak {
+    void cetak(String teks);
 }
 
 class KasirManual implements MesinKasir {
