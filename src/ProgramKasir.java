@@ -11,10 +11,14 @@ public class ProgramKasir {
         System.out.println("                    Kasir Restoran                ");
         System.out.println("==================================================");
 
-        TransaksiService transaksi = new TransaksiService();
+        IPerhitungan perhitungan = new KasirDigital();
+        ICetakStruk cetakStruk   = new KasirDigital();
+        TransaksiService transaksi = new TransaksiService(perhitungan, cetakStruk);
         double total = transaksi.prosesTransaksi(items);
-
-        LaporanService laporan = new LaporanService();
+ 
+        IPenyimpanan penyimpanan = new Database();
+        IPencetak pencetak       = new PrinterThermal();
+        LaporanService laporan = new LaporanService(penyimpanan, pencetak);
         laporan.buatLaporan(total);
 
         System.out.println("==================================================");
