@@ -59,8 +59,9 @@ interface IPencetak {
     void cetak(String teks);
 }
 
-class KasirManual implements MesinKasir {
-
+//tidak lagi dipaksa implementasi yang tidak diperlukan, dan tidak perlu throw UnsupportedOperationException lagi
+class KasirManual implements IPerhitungan, ICetakStruk, ISimpanLaporan, IKirimEmail {
+    
     @Override
     public double hitungTotal(List<Map<String, Object>> items) {
         double total = 0;
@@ -89,16 +90,6 @@ class KasirManual implements MesinKasir {
     @Override
     public void kirimEmail(double total) {
         System.out.printf("[EMAIL] Mengirim total Rp %.0f%n", total);
-    }
-
-    @Override
-    public void scanBarcode(String kode) {
-        throw new UnsupportedOperationException("Kasir manual tidak punya scanner!");
-    }
-
-    @Override
-    public void bayarDenganKartu(double jumlah) {
-        throw new UnsupportedOperationException("Kasir manual tidak menerima kartu!");
     }
 }
 
