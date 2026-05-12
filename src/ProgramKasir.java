@@ -168,13 +168,14 @@ class PrinterThermal {
 }
 
 class LaporanService {
-
-    private Database db;
-    private PrinterThermal printer;
-
-    public LaporanService() {
-        this.db      = new Database();
-        this.printer = new PrinterThermal();
+ 
+    private IPenyimpanan penyimpanan;
+    private IPencetak pencetak;
+ 
+    // Constructor menerima abstraksi, bukan concrete class
+    public LaporanService(IPenyimpanan penyimpanan, IPencetak pencetak) {
+        this.penyimpanan = penyimpanan;
+        this.pencetak    = pencetak;
     }
 
     public void buatLaporan(double total) {
