@@ -9,10 +9,16 @@ public class ProgramPerpustakaan {
         System.out.println("           Sistem Peminjaman Perpustakaan         ");
         System.out.println("==================================================");
 
-        Database database       = new Database();
-        LaporanService laporan  = new LaporanService();
+        IPenyimpanan database       = new Database();
+        IPencetakLaporan printer    = new PrinterLaporan();
+        IFormatLaporan formatCetak  = new LaporanCetak(printer);
+        IFormatLaporan formatEmail  = new LaporanEmail();
+        IFormatLaporan formatFile   = new LaporanFile();
 
-        PeminjamanService peminjaman = new PeminjamanService();
+        LaporanService laporan = new LaporanService();
+        laporan.tambahFormat(formatCetak);
+        laporan.tambahFormat(formatEmail);
+        laporan.tambahFormat(formatFile);
 
         peminjaman.pinjamBuku("Harry Potter", "fiksi", "Rima");
         peminjaman.pinjamBuku("Kamus Besar", "referensi", "Budi");
