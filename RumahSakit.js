@@ -76,13 +76,15 @@ class MedicalRecordService {
     }
 
 console.log("=== SISTEM APPOINTMENT ===");
-const appointmentService = new AppointmentService();
+const appointmentService = new AppointmentService(new WhatsAppNotification())
+;
 appointmentService.bookAppointment();
 
 console.log("\n=== SISTEM PEMBAYARAN ===");
-const paymentService = new PaymentService();
+const paymentService = new PaymentService(new CashPayment())
+;
 paymentService.processPayment();
 
 console.log("\n=== SISTEM REKAM MEDIS ===");
-const medicalRecordService = new MedicalRecordService();
+const medicalRecordService = new MedicalRecordService(new MySQLDatabase());
 medicalRecordService.saveRecord();
