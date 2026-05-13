@@ -27,10 +27,18 @@ class AppointmentService {
     }
 }
 
-class CashPayment {
-    pay() {
-        console.log("Bayar Tunai");
-    }
+class PaymentMethod { pay(amount) {} }
+
+class CashPayment extends PaymentMethod {
+
+    pay(amount) { console.log(`Bayar Tunai: Rp${amount}`); }
+
+}
+
+class BPJSPayment extends PaymentMethod {
+
+    pay(amount) { console.log(`Klaim BPJS: Rp${amount}`); }
+
 }
 
 class PaymentService {
