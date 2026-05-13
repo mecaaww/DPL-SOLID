@@ -60,6 +60,26 @@ public class ProgramPerpustakaan {
     }
 }
 
+interface IHitungDenda {
+    double hitung(int hariTerlambat);
+}
+
+interface ICekStatus {
+    void cekStatus(String status);
+}
+
+interface IFormatLaporan {
+    void buat();
+}
+
+interface IPencetakLaporan {
+    void cetak(String teks);
+}
+
+interface IPenyimpanan {
+    void simpan(String data);
+}
+
 class BiayaDenda {
 
     public double hitungDenda(String jenisBuku, int hariTerlambat) {
