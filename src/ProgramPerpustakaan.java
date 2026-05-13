@@ -80,22 +80,24 @@ interface IPenyimpanan {
     void simpan(String data);
 }
 
-class BiayaDenda {
+class DendaFiksi implements IHitungDenda {
+    @Override
+    public double hitung(int hariTerlambat) {
+        return hariTerlambat * 1000;
+    }
+}
 
-    public double hitungDenda(String jenisBuku, int hariTerlambat) {
-        double denda = 0;
+class DendaReferensi implements IHitungDenda {
+    @Override
+    public double hitung(int hariTerlambat) {
+        return hariTerlambat * 3000;
+    }
+}
 
-        if (jenisBuku.equals("fiksi")) {
-            denda = hariTerlambat * 1000;
-        } else if (jenisBuku.equals("referensi")) {
-            denda = hariTerlambat * 3000;
-        } else if (jenisBuku.equals("majalah")) {
-            denda = hariTerlambat * 500;
-        } else {
-            denda = hariTerlambat * 2000;
-        }
-
-        return denda;
+class DendaMajalah implements IHitungDenda {
+    @Override
+    public double hitung(int hariTerlambat) {
+        return hariTerlambat * 500;
     }
 }
 
