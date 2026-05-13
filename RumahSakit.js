@@ -57,14 +57,19 @@ class MySQLDatabase {
 }
 
 class MedicalRecordService {
-    constructor() {
-        this.db = new MySQLDatabase();
+      constructor(database) { // ✅ terima dari luar
+
+        this.db = database;
     }
-    saveRecord() {
+    saveRecord(data) {
+
         this.db.connect();
+
+        this.db.save(data);
+
         console.log("Data rekam medis disimpan");
+
     }
-}
 
 console.log("=== SISTEM APPOINTMENT ===");
 const appointmentService = new AppointmentService();
