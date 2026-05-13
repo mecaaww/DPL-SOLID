@@ -97,10 +97,11 @@ class StatusPeminjaman {
 
 class LaporanService {
 
-    private PrinterLaporan printer = new PrinterLaporan();
+    private IPencetakLaporan printer;
 
-    public void buatLaporan(String format) {
-
+    public LaporanCetak(IPencetakLaporan printer) {
+        this.printer = printer;
+    }
         if (format.equals("cetak")) {
             printer.cetak("Laporan peminjaman dicetak.");
         } else if (format.equals("email")) {
