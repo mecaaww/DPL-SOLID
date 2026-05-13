@@ -20,6 +20,11 @@ public class ProgramCatatanTugas {
         bisaEdit.add(biasa);
         bisaHapus.add(biasa);
 
+        TugasDraft draft = new TugasDraft("Laporan PKL", "Cicil laporan PKL bab 1");
+        semuaTugas.add(draft);
+        bisaEdit.add(draft);
+        bisaHapus.add(draft);
+
         System.out.println("\n--- Daftar Tugas ---");
         for (Tugas t : daftarTugas) {
             t.tampilkan();
@@ -102,21 +107,26 @@ class TugasBiasa extends Tugas {
     }
 }
 
-class TugasDraft extends Tugas {
-
+class TugasDraft extends Tugas implements IEditable, IDeletable {
+ 
     public TugasDraft(String judul, String deskripsi) {
         super(judul, deskripsi);
     }
-
+ 
     @Override
     public void tampilkan() {
         System.out.println("[DRAFT] " + judul + " - " + deskripsi);
     }
-
+ 
     @Override
-    public void submit() {
-        throw new UnsupportedOperationException(
-                "Tugas draft belum bisa disubmit!");
+    public void edit(String kontenBaru) {
+        this.deskripsi = kontenBaru;
+        System.out.println("[EDIT] Draft '" + judul + "' berhasil diedit.");
+    }
+ 
+    @Override
+    public void hapus() {
+        System.out.println("[HAPUS] Draft '" + judul + "' berhasil dihapus.");
     }
 }
 
