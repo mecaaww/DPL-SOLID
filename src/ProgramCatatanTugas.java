@@ -25,6 +25,10 @@ public class ProgramCatatanTugas {
         bisaEdit.add(draft);
         bisaHapus.add(draft);
 
+        TugasReadOnly readOnly = new TugasReadOnly("Panduan Skripsi", "Panduan dari dosen");
+        semuaTugas.add(readOnly);
+        bisaSubmit.add(readOnly);
+
         System.out.println("\n--- Daftar Tugas ---");
         for (Tugas t : daftarTugas) {
             t.tampilkan();
@@ -130,21 +134,20 @@ class TugasDraft extends Tugas implements IEditable, IDeletable {
     }
 }
 
-class TugasReadOnly extends Tugas {
-
+class TugasReadOnly extends Tugas implements ISubmittable {
+ 
     public TugasReadOnly(String judul, String deskripsi) {
         super(judul, deskripsi);
     }
-
+ 
     @Override
     public void tampilkan() {
         System.out.println("[READ-ONLY] " + judul + " - " + deskripsi);
     }
-
+ 
     @Override
-    public void edit(String kontenBaru) {
-        throw new UnsupportedOperationException(
-                "Tugas read-only tidak bisa diedit!");
+    public void submit() {
+        System.out.println("[SUBMIT] Tugas read-only '" + judul + "' disubmit.");
     }
 }
 
