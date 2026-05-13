@@ -9,11 +9,16 @@ public class ProgramCatatanTugas {
         System.out.println("           Aplikasi Catatan Tugas                 ");
         System.out.println("==================================================");
 
-        List<Tugas> daftarTugas = new ArrayList<>();
-        daftarTugas.add(new TugasBiasa("Belajar Java", "Pelajari OOP dan SOLID"));
-        daftarTugas.add(new TugasDraft("Laporan PKL", "Cicil laporan PKL bab 1"));
-        daftarTugas.add(new TugasReadOnly("Panduan Skripsi", "Panduan dari dosen"));
-        daftarTugas.add(new TugasArsip("Tugas Lama", "Tugas semester lalu"));
+        List<ITugasTampil> semuaTugas = new ArrayList<>();
+        List<ISubmittable> bisaSubmit = new ArrayList<>();
+        List<IEditable>    bisaEdit   = new ArrayList<>();
+        List<IDeletable>   bisaHapus  = new ArrayList<>();
+ 
+        TugasBiasa biasa = new TugasBiasa("Belajar Java", "Pelajari OOP dan SOLID");
+        semuaTugas.add(biasa);
+        bisaSubmit.add(biasa);
+        bisaEdit.add(biasa);
+        bisaHapus.add(biasa);
 
         System.out.println("\n--- Daftar Tugas ---");
         for (Tugas t : daftarTugas) {
