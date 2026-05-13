@@ -1,9 +1,18 @@
 
-class WhatsAppNotification {
-    sendMessage() {
-        console.log("Kirim notifikasi WhatsApp");
-    }
+class NotificationService { sendMessage() {} }
+
+class WhatsAppNotification extends NotificationService {
+
+    sendMessage() { console.log("Kirim notifikasi WhatsApp"); }
+
 }
+
+class EmailNotification extends NotificationService {
+
+    sendMessage() { console.log("Kirim notifikasi Email"); }
+
+}
+
 
 class AppointmentService {
     constructor() {
