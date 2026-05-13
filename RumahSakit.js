@@ -42,12 +42,11 @@ class BPJSPayment extends PaymentMethod {
 }
 
 class PaymentService {
-    constructor() {
-        this.payment = new CashPayment();
-    }
-    processPayment() {
-        this.payment.pay();
-    }
+  constructor(paymentMethod) {
+    this.payment = paymentMethod;
+}
+processPayment(amount) {
+    this.payment.pay(amount);
 }
 
 class MySQLDatabase {
