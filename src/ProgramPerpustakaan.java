@@ -151,24 +151,49 @@ class StatusTidakDiketahui implements IStatusPeminjaman {
 
 class LaporanService {
 
+    private java.util.List<IFormatLaporan> formatList = new java.util.ArrayList<>();
+
+    public void tambahFormat(IFormatLaporan format) {
+        formatList.add(format);
+    }
+
+    public void buatSemuaLaporan() {
+        for (IFormatLaporan format : formatList) {
+            format.buat();
+        }
+    }
+}
+
+class LaporanCetak implements IFormatLaporan {
+
+    // DIP FIX 3: depend on IPencetakLaporan (abstraksi), disuntik via constructor
     private IPencetakLaporan printer;
 
     public LaporanCetak(IPencetakLaporan printer) {
         this.printer = printer;
     }
-        if (format.equals("cetak")) {
-            printer.cetak("Laporan peminjaman dicetak.");
-        } else if (format.equals("email")) {
-            System.out.println("[EMAIL] Laporan dikirim via email.");
-        } else if (format.equals("file")) {
-            try (FileWriter fw = new FileWriter("laporan.txt", true)) {
-                fw.write("Laporan peminjaman disimpan.\n");
-                System.out.println("[FILE] Laporan disimpan ke file.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("[LAPORAN] Format tidak diketahui.");
+
+    @Override
+    public void buat() {
+        printer.cetak("Laporan peminjaman dicetak.");
+    }
+}
+
+class LaporanEmail implements IFormatLaporan {
+    @Override
+    public void buat() {
+        System.out.println("[EMAIL] Laporan dikirim via email.");
+    }
+}
+
+class LaporanFile implements IFormatLaporan {
+    @Override
+    public void buat() {
+        try (FileWriter fw = new FileWriter("laporan.txt", true)) {
+            fw.write("Laporan peminjaman disimpan.\n");
+            System.out.println("[FILE] Laporan disimpan ke file.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
