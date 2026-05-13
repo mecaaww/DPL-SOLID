@@ -101,19 +101,51 @@ class DendaMajalah implements IHitungDenda {
     }
 }
 
-class StatusPeminjaman {
-
+class StatusHandler implements ICekStatus {
+    @Override
     public void cekStatus(String status) {
+        IStatusPeminjaman handler;
 
-        if (status.equals("dipinjam")) {
-            System.out.println("[STATUS] Buku sedang dipinjam.");
-        } else if (status.equals("dikembalikan")) {
-            System.out.println("[STATUS] Buku sudah dikembalikan.");
-        } else if (status.equals("terlambat")) {
-            System.out.println("[STATUS] Buku terlambat dikembalikan, kena denda!");
-        } else {
-            System.out.println("[STATUS] Status tidak diketahui.");
+        switch (status) {
+            case "dipinjam"      -> handler = new StatusDipinjam();
+            case "dikembalikan"  -> handler = new StatusDikembalikan();
+            case "terlambat"     -> handler = new StatusTerlambat();
+            default              -> handler = new StatusTidakDiketahui();
         }
+
+        handler.tampilkan();
+    }
+}
+
+interface IStatusPeminjaman {
+    void tampilkan();
+}
+
+class StatusDipinjam implements IStatusPeminjaman {
+    @Override
+    public void tampilkan() {
+        System.out.println("[STATUS] Buku sedang dipinjam.");
+    }
+}
+
+class StatusDikembalikan implements IStatusPeminjaman {
+    @Override
+    public void tampilkan() {
+        System.out.println("[STATUS] Buku sudah dikembalikan.");
+    }
+}
+
+class StatusTerlambat implements IStatusPeminjaman {
+    @Override
+    public void tampilkan() {
+        System.out.println("[STATUS] Buku terlambat dikembalikan, kena denda!");
+    }
+}
+
+class StatusTidakDiketahui implements IStatusPeminjaman {
+    @Override
+    public void tampilkan() {
+        System.out.println("[STATUS] Status tidak diketahui.");
     }
 }
 
