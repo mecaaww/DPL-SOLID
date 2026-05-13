@@ -144,15 +144,17 @@ class LaporanService {
 
 class PeminjamanService {
 
-    // Langsung bergantung ke concrete class
-    private BiayaDenda biayaDenda         = new BiayaDenda();
-    private StatusPeminjaman statusPeminjaman = new StatusPeminjaman();
+    private ICekStatus statusHandler;
 
+    public PeminjamanService(ICekStatus statusHandler) {
+        this.statusHandler = statusHandler;
+    }
+    
     public void pinjamBuku(String judul, String jenis, String peminjam) {
         System.out.printf("[PINJAM] %s meminjam buku '%s' (jenis: %s)%n",
                 peminjam, judul, jenis);
     }
-
+    
     public double hitungDenda(String jenisBuku, int hariTerlambat) {
         double denda = biayaDenda.hitungDenda(jenisBuku, hariTerlambat);
         System.out.printf("[DENDA] Jenis: %s | %d hari terlambat | Denda: Rp %.0f%n",
