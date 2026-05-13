@@ -68,6 +68,11 @@ class MedicalRecordService {
 
         console.log("Data rekam medis disimpan");
 
+
+class MedicalRecordService {
+    constructor(database) { ... }
+    saveRecord(data) { ... }
+}  
     }
 
 console.log("=== SISTEM APPOINTMENT ===");
