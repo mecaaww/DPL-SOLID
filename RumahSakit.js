@@ -15,9 +15,12 @@ class EmailNotification extends NotificationService {
 
 
 class AppointmentService {
-    constructor() {
-        this.notification = new WhatsAppNotification();
+    constructor(notification) { // ✅ terima dari luar
+
+        this.notification = notification;
+
     }
+    
     bookAppointment() {
         console.log("Appointment berhasil");
         this.notification.sendMessage();
