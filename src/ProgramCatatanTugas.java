@@ -29,6 +29,10 @@ public class ProgramCatatanTugas {
         semuaTugas.add(readOnly);
         bisaSubmit.add(readOnly);
 
+        TugasArsip arsip = new TugasArsip("Tugas Lama", "Tugas semester lalu");
+        semuaTugas.add(arsip);
+        bisaSubmit.add(arsip);
+
         System.out.println("\n--- Daftar Tugas ---");
         for (Tugas t : daftarTugas) {
             t.tampilkan();
@@ -151,20 +155,19 @@ class TugasReadOnly extends Tugas implements ISubmittable {
     }
 }
 
-class TugasArsip extends Tugas {
-
+class TugasArsip extends Tugas implements ISubmittable {
+ 
     public TugasArsip(String judul, String deskripsi) {
         super(judul, deskripsi);
     }
-
+ 
     @Override
     public void tampilkan() {
         System.out.println("[ARSIP] " + judul + " - " + deskripsi);
     }
-
+ 
     @Override
-    public void hapus() {
-        throw new UnsupportedOperationException(
-                "Tugas arsip tidak bisa dihapus langsung!");
+    public void submit() {
+        System.out.println("[SUBMIT] Tugas arsip '" + judul + "' diarsipkan.");
     }
 }
