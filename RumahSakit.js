@@ -1,90 +1,97 @@
 
-class NotificationService { sendMessage() {} }
+class LaporanMedis {
 
-class WhatsAppNotification extends NotificationService {
+    private String formatLaporan = "FORMAT_TEKS_BIASA"; 
 
-    sendMessage() { console.log("Kirim notifikasi WhatsApp"); }
-
-}
-
-class EmailNotification extends NotificationService {
-
-    sendMessage() { console.log("Kirim notifikasi Email"); }
-
-}
-
-
-class AppointmentService {
-    constructor(notification) { // ✅ terima dari luar
-
-        this.notification = notification;
-
+    public void simpanLaporan(String namaPasien, String diagnosis) {
+        System.out.println("=== LAPORAN MEDIS [" + formatLaporan + "] ===");
+        System.out.println("Pasien    : " + namaPasien);
+        System.out.println("Diagnosis : " + diagnosis);
+        System.out.println("Status    : Tersimpan ke FILE LOKAL");
+        System.out.println("==========================================");
     }
+
+    public void cetakLaporan(String namaPasien) {
+        System.out.println("[CETAK - " + formatLaporan + "] Mencetak laporan untuk: " + namaPasien);
+    }
+}
+
+
+class NotifikasiSMS {
+
+    private String providerSMS = "TELKOMSEL_GATEWAY"; // hardcoded!
+
+    public void kirimNotifikasi(String namaPasien, String pesan) {
+        System.out.println("=== NOTIFIKASI SMS [" + providerSMS + "] ===");
+        System.out.println("Kepada : " + namaPasien);
+        System.out.println("Pesan  : " + pesan);
+        System.out.println("Status : Terkirim via SMS");
+        System.out.println("=========================================");
+    }
+}
+
+
+class Dokter {
+
+    private String namaDokter;
+    private String spesialisasi;
+
     
-    bookAppointment() {
-        console.log("Appointment berhasil");
-        this.notification.sendMessage();
+    private LaporanMedis laporanMedis;  
+    private NotifikasiSMS notifikasiSMS; 
+
+    public Dokter(String namaDokter, String spesialisasi) {
+        this.namaDokter = namaDokter;
+        this.spesialisasi = spesialisasi;
+
+        /
+        this.laporanMedis = new LaporanMedis();   
+        this.notifikasiSMS = new NotifikasiSMS(); 
+    }
+
+    public void periksaPasien(String namaPasien, String diagnosis) {
+        System.out.println("\n[DOKTER] " + namaDokter + " (" + spesialisasi + ")");
+        System.out.println("[DOKTER] Memeriksa pasien: " + namaPasien);
+        laporanMedis.simpanLaporan(namaPasien, diagnosis);
+        notifikasiSMS.kirimNotifikasi(namaPasien,
+                "Hasil pemeriksaan Dr. " + namaDokter + ": " + diagnosis);
+    }
+
+    public void cetakHasilPeriksa(String namaPasien) {
+        laporanMedis.cetakLaporan(namaPasien);
     }
 }
 
-class PaymentMethod { pay(amount) {} }
 
-class CashPayment extends PaymentMethod {
+// MAIN
 
-    pay(amount) { console.log(`Bayar Tunai: Rp${amount}`); }
+public class SistemKesehatanSalah {
+    public static void main(String[] args) {
 
-}
+        System.out.println("╔══════════════════════════════════════════╗");
+        System.out.println("║   SISTEM MANAJEMEN TENAGA KESEHATAN      ║");
+        System.out.println("║                                            );
+        System.out.println("╚══════════════════════════════════════════╝");
 
-class BPJSPayment extends PaymentMethod {
+        // Dokter dibuat tanpa bisa pilih implementasi dari luar
+        Dokter dokter1 = new Dokter("Andi Setiawan", "Spesialis Jantung");
+        Dokter dokter2 = new Dokter("Rina Maharani", "Spesialis Anak");
 
-    pay(amount) { console.log(`Klaim BPJS: Rp${amount}`); }
+        System.out.println("\n>>> Simulasi Pemeriksaan Pasien <<<");
 
-}
+        dokter1.periksaPasien("Budi Santoso", "Hipertensi Ringan");
+        System.out.println();
+        dokter1.cetakHasilPeriksa("Budi Santoso");
 
-class PaymentService {
-  constructor(paymentMethod) {
-    this.payment = paymentMethod;
-}
-processPayment(amount) {
-    this.payment.pay(amount);
-}
+        System.out.println();
 
-class MySQLDatabase {
-    connect() {
-        console.log("Connect MySQL");
+        dokter2.periksaPasien("Siti Rahayu", "Demam Berdarah Stadium 1");
+        System.out.println();
+        dokter2.cetakHasilPeriksa("Siti Rahayu");
+
+        System.out.println("\n>>> Masalah yang muncul <<<");
+        System.out.println("- Tidak bisa ganti LaporanMedis ke Database/PDF tanpa ubah class Dokter");
+        System.out.println("- Tidak bisa ganti NotifikasiSMS ke Email/WhatsApp tanpa ubah class Dokter");
+        System.out.println("- Format & provider hardcoded: tidak fleksibel sama sekali");
     }
 }
-
-class MedicalRecordService {
-      constructor(database) { // ✅ terima dari luar
-
-        this.db = database;
-    }
-    saveRecord(data) {
-
-        this.db.connect();
-
-        this.db.save(data);
-
-        console.log("Data rekam medis disimpan");
-
-
-class MedicalRecordService {
-    constructor(database) { ... }
-    saveRecord(data) { ... }
-}  
-    }
-
-console.log("=== SISTEM APPOINTMENT ===");
-const appointmentService = new AppointmentService(new WhatsAppNotification())
-;
-appointmentService.bookAppointment();
-
-console.log("\n=== SISTEM PEMBAYARAN ===");
-const paymentService = new PaymentService(new CashPayment())
-;
-paymentService.processPayment();
-
-console.log("\n=== SISTEM REKAM MEDIS ===");
-const medicalRecordService = new MedicalRecordService(new MySQLDatabase());
-medicalRecordService.saveRecord();
