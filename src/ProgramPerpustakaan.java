@@ -20,6 +20,14 @@ public class ProgramPerpustakaan {
         laporan.tambahFormat(formatEmail);
         laporan.tambahFormat(formatFile);
 
+        IHitungDenda dendaFiksi      = new DendaFiksi();
+        IHitungDenda dendaReferensi  = new DendaReferensi();
+        IHitungDenda dendaMajalah    = new DendaMajalah();
+
+        ICekStatus statusHandler = new StatusHandler();
+
+        PeminjamanService peminjaman = new PeminjamanService(statusHandler);
+        
         peminjaman.pinjamBuku("Harry Potter", "fiksi", "Rima");
         peminjaman.pinjamBuku("Kamus Besar", "referensi", "Budi");
         peminjaman.pinjamBuku("Majalah Tempo", "majalah", "Sari");
