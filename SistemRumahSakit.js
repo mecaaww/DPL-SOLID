@@ -1,18 +1,34 @@
 
-class LaporanMedis {
+// INTERFACE / ABSTRAKSI
+interface ILaporanMedis {
+    void simpanLaporan(String namaPasien, String diagnosis);
+    void cetakLaporan(String namaPasien);
+}
 
-    
-    private String formatLaporan = "FORMAT_TEKS_BIASA"; 
 
+// IMPLEMENTASI
+class LaporanMedisFile implements ILaporanMedis {
+
+    private String formatLaporan;
+
+    // format sekarang fleksibel
+    public LaporanMedisFile(String formatLaporan) {
+        this.formatLaporan = formatLaporan;
+    }
+
+    @Override
     public void simpanLaporan(String namaPasien, String diagnosis) {
+
         System.out.println("=== LAPORAN MEDIS [" + formatLaporan + "] ===");
         System.out.println("Pasien    : " + namaPasien);
         System.out.println("Diagnosis : " + diagnosis);
-        System.out.println("Status    : Tersimpan ke FILE LOKAL");
+        System.out.println("Status    : Tersimpan ke FILE");
         System.out.println("==========================================");
     }
 
+    @Override
     public void cetakLaporan(String namaPasien) {
+
         System.out.println("[CETAK - " + formatLaporan + "] Mencetak laporan untuk: " + namaPasien);
     }
 }
